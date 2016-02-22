@@ -39,6 +39,11 @@ public class PositionSlider : MonoBehaviour
 			speed = 0;
 		}
 		slider = Mathf.Clamp (slider, 0.0f, 1.0f);
+
+		if (startMarker == null || endMarker == null) {
+			return;
+		}
+
 		transform.position = Vector3.Lerp (startMarker.position, endMarker.position, slider);
 	}
 
@@ -49,13 +54,13 @@ public class PositionSlider : MonoBehaviour
 
 		switch (moving) {
 		case Moving.Stop:
-			BroadcastMessage ("DoStop");
+			Debug.Log ("DoStop");
 			break;
 		case Moving.Forward:
-			BroadcastMessage ("DoForward");
+			Debug.Log ("DoForward");
 			break;
 		case Moving.Backward:
-			BroadcastMessage ("DoBackward");
+			Debug.Log ("DoBackward");
 			break;
 		}
 	}
@@ -63,9 +68,13 @@ public class PositionSlider : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (startMarker == null || endMarker == null) {
+			return;
+		}
+
 		switch (moving) {
 		case Moving.Stop:
-			break;
+			return;
 		case Moving.Forward:
 			slider += speed * Time.deltaTime;
 			SetAll ();
@@ -84,11 +93,11 @@ public class PositionSlider : MonoBehaviour
 	//
 	void ReachedTarget ()
 	{
-		BroadcastMessage ("ReachedTarget");
+		Debug.Log ("ReachedTarget");
 
 		switch (bounce) {
 		case Bounce.None:
-			BroadcastMessage ("Finish");
+			Debug.Log ("Finish");
 			DoMovement (Moving.Stop);
 			break;
 		case Bounce.Return:
@@ -96,26 +105,26 @@ public class PositionSlider : MonoBehaviour
 			case Moving.Stop:
 				break;
 			case Moving.Forward:
-				BroadcastMessage ("Return");
+				Debug.Log ("Return");
 				DoMovement (Moving.Backward);
 				break;
 			case Moving.Backward:
-				BroadcastMessage ("Finish");
+				Debug.Log ("Finish");
 				DoMovement (Moving.Stop);
 				break;
 			}
 			break;
 		case Bounce.Pingpong:
-			BroadcastMessage ("Pingpong");
+			Debug.Log ("Pingpong");
 			switch (moving) {
 			case Moving.Stop:
 				DoMovement (Moving.Stop);
 				break;
 			case Moving.Forward:
-				DoMovement (Moving.Forward);
+				DoMovement (Moving.Backward);
 				break;
 			case Moving.Backward:
-				DoMovement (Moving.Backward);
+				DoMovement (Moving.Forward);
 				break;
 			}
 			break;
