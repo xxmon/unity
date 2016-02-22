@@ -54,7 +54,7 @@ public class SwitchGroup : MonoBehaviour {
 
 		if(triggerTarget != null)
 		{
-			triggerTarget.SendMessage ("DoActivateTrigger");
+			triggerTarget.SendMessage ("DoActivateTrigger", SendMessageOptions.DontRequireReceiver);
 		}
 
 		Debug.Log("IsDesiredState");
