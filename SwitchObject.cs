@@ -6,6 +6,7 @@ public class SwitchObject : MonoBehaviour
 
 	public bool isOn = false;
 	public bool switchButton = false;
+	public bool desiredState = false;
 	public GameObject player;
 	public GameObject objectOn;
 	public GameObject objectOff;
@@ -34,6 +35,10 @@ public class SwitchObject : MonoBehaviour
 		} else {
 			objectOn.SetActive (false);
 			objectOff.SetActive (true);			
+		}
+
+		if (Application.isPlaying) {
+			gameObject.SendMessageUpwards ("IsDesiredState", SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
