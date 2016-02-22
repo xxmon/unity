@@ -5,6 +5,7 @@ public class SwitchObject : MonoBehaviour
 {
 
 	public bool isOn = false;
+	public bool isLocked = false;
 	public bool switchButton = false;
 	public bool desiredState = false;
 	public GameObject player;
@@ -44,18 +45,31 @@ public class SwitchObject : MonoBehaviour
 
 	void switchObjects ()
 	{
+		if(!isLocked)
+		{
+			return;
+		}
+
 		isOn = !isOn;
 		updateObjects ();
 	}
 
 	void switchOn ()
 	{
+		if(!isLocked)
+		{
+			return;
+		}
 		isOn = true;
 		updateObjects ();
 	}
 
 	void switchOff ()
 	{
+		if(!isLocked)
+		{
+			return;
+		}
 		isOn = false;
 		updateObjects ();
 	}
@@ -67,11 +81,20 @@ public class SwitchObject : MonoBehaviour
 
 	void DoActivateTrigger ()
 	{
+		if(!isLocked)
+		{
+			return;
+		}
 		switchObjects ();
 	}
 
 	void OnMouseOver ()
 	{
+		if(!isLocked)
+		{
+			return;
+		}
+
 		if (player != null) {
 			if (Vector3.Distance (player.transform.position, transform.position) > distance) {
 				return;
