@@ -41,6 +41,24 @@ public class PositionSlider : MonoBehaviour
 		slider = Mathf.Clamp (slider, 0.0f, 1.0f);
 		transform.position = Vector3.Lerp (startMarker.position, endMarker.position, slider);
 	}
+
+	//
+	void DoMovement (Moving pMoving)
+	{
+		moving = pMoving;
+
+		switch (moving) {
+		case Moving.Stop:
+			BroadcastMessage ("DoStop");
+			break;
+		case Moving.Forward:
+			BroadcastMessage ("DoForward");
+			break;
+		case Moving.Backward:
+			BroadcastMessage ("DoBackward");
+			break;
+		}
+	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -59,43 +77,45 @@ public class PositionSlider : MonoBehaviour
 		}
 
 		if (slider == 0.0f || slider == 1.0f) {
-			HitTarget ();
+			ReachedTarget ();
 		}
 	}
 
 	//
-	void HitTarget ()
+	void ReachedTarget ()
 	{
-		Debug.Log ("Hit target");
+		BroadcastMessage ("ReachedTarget");
 
 		switch (bounce) {
 		case Bounce.None:
-			moving = Moving.Stop;
+			BroadcastMessage ("Finish");
+			DoMovement (Moving.Stop);
 			break;
 		case Bounce.Return:
-			Debug.Log ("return");
 			switch (moving) {
 			case Moving.Stop:
 				break;
 			case Moving.Forward:
-				moving = Moving.Backward;
+				BroadcastMessage ("Return");
+				DoMovement (Moving.Backward);
 				break;
 			case Moving.Backward:
-				moving = Moving.Stop;
+				BroadcastMessage ("Finish");
+				DoMovement (Moving.Stop);
 				break;
 			}
 			break;
 		case Bounce.Pingpong:
-			Debug.Log ("pinpong");
+			BroadcastMessage ("Pingpong");
 			switch (moving) {
 			case Moving.Stop:
-				moving = Moving.Stop;
+				DoMovement (Moving.Stop);
 				break;
 			case Moving.Forward:
-				moving = Moving.Backward;
+				DoMovement (Moving.Forward);
 				break;
 			case Moving.Backward:
-				moving = Moving.Forward;
+				DoMovement (Moving.Backward);
 				break;
 			}
 			break;
