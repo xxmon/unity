@@ -31,16 +31,16 @@ public class ArrayCircle : MonoBehaviour
 			float y = transform.position.y;
 			float z = 0f;
 
-			x = transform.position.x + radius * Mathf.Cos (theta * Mathf.PI / 180);
-			z = transform.position.z + radius * Mathf.Sin (theta * Mathf.PI / 180);
+			x = radius * Mathf.Cos (theta * Mathf.PI / 180);
+			z = radius * Mathf.Sin (theta * Mathf.PI / 180);
 
-			transform.GetChild (i).transform.position = new Vector3 (x, y, z);
+			transform.GetChild (i).transform.localPosition = new Vector3 (x, y, z);
 
 			if (doRotation) {
-				transform.GetChild (i).transform.rotation = new Quaternion ();
+				transform.GetChild (i).localRotation = Quaternion.identity;
 				transform.GetChild (i).transform.Rotate (new Vector3 (0, -theta, 0));
 			} else {
-				transform.GetChild (i).transform.rotation = new Quaternion ();
+				transform.GetChild (i).localRotation = Quaternion.identity;
 			}
 
 			theta += step;
