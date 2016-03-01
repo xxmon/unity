@@ -49,7 +49,6 @@ public class ArrayCircle : MonoBehaviour
 
 	public void SpawnChildren ()
 	{
-		//Debug.Log ("SpawnChildren.");
 		if (target == null) {
 			return;
 		}
@@ -62,7 +61,7 @@ public class ArrayCircle : MonoBehaviour
 			GameObject clone;
 			clone = Instantiate (target, Vector3.zero, Quaternion.identity) as GameObject;
 			clone.transform.SetParent (gameObject.transform);
-			clone.name = i.ToString();
+			clone.name = i.ToString ();
 		}
 	}
 
@@ -72,14 +71,15 @@ public class ArrayCircle : MonoBehaviour
 			return;
 		}
 
-		Reposition ();
+		if (numberToSpawn < 1) {
+			numberToSpawn = 1;
+		}
 
-		/*if (transform.childCount == numberToSpawn) {
-			Reposition ();
-		} else {
-			SpawnChildren ();
-			Reposition ();
-		}*/
+		if (radius < 0) {
+			radius = 0;
+		}
+
+		Reposition ();
 	}
 }
 
@@ -92,10 +92,8 @@ public class ArrayCircleEditor : Editor
 		DrawDefaultInspector ();
 
 		ArrayCircle myScript = (ArrayCircle)target;
-		if (GUILayout.Button ("Spawn Children")) {
+		if (GUILayout.Button ("Reset")) {
 			myScript.SpawnChildren ();
-		}
-		if (GUILayout.Button ("Reposition Objects")) {
 			myScript.Reposition ();
 		}
 	}
