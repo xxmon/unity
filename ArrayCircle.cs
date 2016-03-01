@@ -7,6 +7,7 @@ public class ArrayCircle : MonoBehaviour
 	public GameObject target;
 	public int numberToSpawn = 9;
 	public float radius = 2f;
+	public bool doRotation = false;
 	// Use this for initialization
 	void Start ()
 	{
@@ -40,6 +41,12 @@ public class ArrayCircle : MonoBehaviour
 			GameObject clone;
 			clone = Instantiate(target, new Vector3(x,y,z), Quaternion.identity) as GameObject;
 			clone.transform.SetParent (gameObject.transform);
+
+			if(doRotation)
+			{
+				clone.transform.Rotate (new Vector3(0,-theta,0));
+			}
+
 			theta += step;
 		}
 	}
