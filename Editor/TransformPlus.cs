@@ -9,9 +9,9 @@ public class TransformPlus : Editor
 	float inch = 2.54f / 100.0f;
 	float foot = 30.48f / 100.0f;
 
-	bool showPosition;
-	bool showRotation;
-	bool showScale;
+	bool showPosition = true;
+	bool showRotation = true;
+	bool showScale = true;
 
 	public override  void OnInspectorGUI ()
 	{
