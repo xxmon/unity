@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-
 [CustomEditor (typeof(Transform))]
 public class TransformPlus : Editor
 {
@@ -24,5 +23,4 @@ public class TransformPlus : Editor
 		EditorGUILayout.Vector3Field ("Scale (inch)", myTarget.localScale / inch);
 		EditorGUILayout.Vector3Field ("Scale (foot)", myTarget.localScale / foot);
 	}
-
 }
