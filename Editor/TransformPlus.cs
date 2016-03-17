@@ -7,6 +7,7 @@ public class TransformPlus : Editor
 {
 	Transform myTarget;
 	
+	// Assume Unity 1 unit = 100cm
 	float inch = 2.54f / 100.0f;
 	float foot = 30.48f / 100.0f;
 
