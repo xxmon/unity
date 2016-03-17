@@ -6,21 +6,34 @@ using UnityEditor;
 public class TransformPlus : Editor
 {
 	Transform myTarget;
-	float inch = 2.54f;
-	float foot = 30.48f;
+	float inch = 2.54f / 100.0f;
+	float foot = 30.48f / 100.0f;
+
+	bool showPosition;
+	bool showRotation;
+	bool showScale;
 
 	public override  void OnInspectorGUI ()
 	{
 		myTarget = (Transform)target;
 
-		myTarget.localPosition = EditorGUILayout.Vector3Field ("Position", myTarget.localPosition);
-		EditorGUILayout.Vector3Field ("Position (inch)", myTarget.localPosition / inch);
-		EditorGUILayout.Vector3Field ("Position (foot)", myTarget.localPosition / foot);
+		showPosition = EditorGUILayout.Foldout (showPosition, "Position");
+		if (showPosition) {
+			myTarget.localPosition = EditorGUILayout.Vector3Field ("Meter", myTarget.localPosition);
+			myTarget.localPosition = EditorGUILayout.Vector3Field ("Inch", myTarget.localPosition / inch) * inch;
+			myTarget.localPosition = EditorGUILayout.Vector3Field ("Foot", myTarget.localPosition / foot) * foot;
+		}
 
-		myTarget.localEulerAngles = EditorGUILayout.Vector3Field ("Rotation", myTarget.localEulerAngles);
+		showRotation = EditorGUILayout.Foldout (showRotation, "Rotation");
+		if (showRotation) {
+			myTarget.localEulerAngles = EditorGUILayout.Vector3Field ("Rotation", myTarget.localEulerAngles);
+		}
 
-		myTarget.localScale = EditorGUILayout.Vector3Field ("Scale", myTarget.localScale);
-		EditorGUILayout.Vector3Field ("Scale (inch)", myTarget.localScale / inch);
-		EditorGUILayout.Vector3Field ("Scale (foot)", myTarget.localScale / foot);
+		showScale = EditorGUILayout.Foldout (showScale, "Scale");
+		if (showScale) {
+			myTarget.localScale = EditorGUILayout.Vector3Field ("Meter", myTarget.localScale);
+			myTarget.localScale = EditorGUILayout.Vector3Field ("Inch", myTarget.localScale / inch) * inch;
+			myTarget.localScale = EditorGUILayout.Vector3Field ("Foot", myTarget.localScale / foot) * foot;
+		}
 	}
 }
