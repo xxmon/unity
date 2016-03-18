@@ -1,0 +1,9 @@
+//
+RaycastHit raycastHit = new RaycastHit();
+
+if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit)) 
+{
+  Debug.Log("Hit " + raycastHit.transform.gameObject.name);
+} 
+
+//
